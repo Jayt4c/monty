@@ -126,7 +126,7 @@ void add(stack_t **stack, unsigned int line_n)
 
 void nop(stack_t **stack, unsigned int line_n)
 {
-	*stack =stack;
+	*stack = *stack;
 	line_n = line_n;
 }
 
