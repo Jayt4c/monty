@@ -144,11 +144,25 @@ void sub(stack_t **stack, unsigned int line_n)
 	pop(stack, line_n);
 }
 
+void mul(stack_t **stack, unsigned int line_n)
+{
+	stack_t *top = *stack;
+
+	if (!top || !top->next)
+	{
+		fprintf(stderr, "L%u: can't mul, stack too short\n", line_n);
+		exit(EXIT_FAILURE);
+	}
+
+	top->next->n *= top->n;
+	pop(stack, line_n);
+}
+
 
 void exec_op(char *tokens[], stack_t **stack, unsigned int line_number)
 {
 	int i, length;
-	instruction_t op_ar[] = {{"push", push}, {"pall", pall}, {"pint", pint}, {"pop", pop}, {"swap", swap}, {"add", add}, {"nop", nop}, {"sub", sub}};
+	instruction_t op_ar[] = {{"push", push}, {"pall", pall}, {"pint", pint}, {"pop", pop}, {"swap", swap}, {"add", add}, {"nop", nop}, {"sub", sub}, {"mul", mul}};
 
 	length = sizeof(op_ar) / sizeof(op_ar[0]);
 
