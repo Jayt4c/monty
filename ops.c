@@ -44,7 +44,6 @@ void pall(stack_t **stack, unsigned int line_number)
 	(void)line_number;
 	if (*stack == NULL)
 	{
-		printf("Stack is empty\n");
 		return;
 	}
 
@@ -59,20 +58,15 @@ void pall(stack_t **stack, unsigned int line_number)
 void pop(stack_t **stack, unsigned int line_n)
 {
 	stack_t *popped = *stack;
-	if (!popped)
+	(void) line_n;
+	if ((*stack) == NULL)
 	{
-		fprintf(stderr, "L%u: can't pop an empty stack\n", line_n);
-		freestack(*stack);
 		exit(EXIT_FAILURE);
 	}
-	popped = *stack;
-	if (popped->prev != NULL)
+	if (*stack)
 	{
-		popped->prev->next = NULL;
-		*stack = popped->prev;
+		*stack = (*stack)->next;
 	}
-	else
-		*stack = NULL;
 	free(popped);
 }
 /**
