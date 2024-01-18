@@ -58,6 +58,24 @@ void pall(stack_t **stack, unsigned int line_number)
 }
 
 /**
+ * pint - prints all ints in stack.
+ * @stack: stack to perform operations on.
+ * @line_number: line number of opcode in source file.
+ * Return: unnecessary as function returns void.
+ */
+void pint(stack_t **stack, unsigned int line_number)
+{
+	if (!(*stack))
+	{
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+	}
+	else
+	{
+		printf("%d\n", (*stack)->n);
+	}
+}
+
+/**
  * exec_op - executes a program from an array of programs.
  * @tokens: array containing tokenized opcode segments.
  * @stack: the stack to perform operations on.
@@ -67,7 +85,7 @@ void pall(stack_t **stack, unsigned int line_number)
 void exec_op(char *tokens[], stack_t **stack, unsigned int line_number)
 {
 	int i, length;
-	instruction_t op_ar[] = {{"push", push}, {"pall", pall}};
+	instruction_t op_ar[] = {{"push", push}, {"pall", pall}, {"pint", pint}};
 
 	length = sizeof(op_ar) / sizeof(op_ar[0]);
 
