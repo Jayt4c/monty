@@ -1,6 +1,6 @@
 #include "monty.h"
 /**
- * main - entry point of the program.
+ * main - entry point of the program..
  * @argc: the number of arguments passed to program.
  * @argv: 1D array of arguments passed to program.
  * Return: always 0 (success).
