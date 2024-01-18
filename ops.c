@@ -124,11 +124,17 @@ void add(stack_t **stack, unsigned int line_n)
 	pop(stack, line_n);
 }
 
+void nop(stack_t **stack, unsigned int line_n)
+{
+	*stack =stack;
+	line_n = line_n;
+}
+
 
 void exec_op(char *tokens[], stack_t **stack, unsigned int line_number)
 {
 	int i, length;
-	instruction_t op_ar[] = {{"push", push}, {"pall", pall}, {"pint", pint}, {"pop", pop}, {"swap", swap}, {"add", add}};
+	instruction_t op_ar[] = {{"push", push}, {"pall", pall}, {"pint", pint}, {"pop", pop}, {"swap", swap}, {"add", add}, {"nop", nop}};
 
 	length = sizeof(op_ar) / sizeof(op_ar[0]);
 
