@@ -7,30 +7,30 @@ char *value = "";
  * Return: unnecessary as function returns void.
  */
 void push(stack_t **stack, unsigned int line_number)
-  {
-  stack_t *newNode = malloc(sizeof(stack_t));
+{
+	stack_t *newNode = malloc(sizeof(stack_t));
 
-  if (newNode == NULL)
-  {
-  fprintf(stderr, "Error: malloc failed at line %d\n", line_number);
-  exit(EXIT_FAILURE);
-  }
+	if (newNode == NULL)
+	{
+		fprintf(stderr, "Error: malloc failed at line %d\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 
-  if (isdig(value) == 0)
-  {
-  fprintf(stderr, "L%d: usage: push integer\n", line_number);
-  exit(EXIT_FAILURE);
-  }
+	if (isdig(value) == 0)
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 
-  newNode->n = atoi(value);
-  newNode->prev = NULL;
-  newNode->next = *stack;
+	newNode->n = atoi(value);
+	newNode->prev = NULL;
+	newNode->next = *stack;
 
-  if (*stack != NULL)
-  (*stack)->prev = newNode;
+	if (*stack != NULL)
+		(*stack)->prev = newNode;
 
- *stack = newNode;
- }
+	*stack = newNode;
+}
 
 
 /**
@@ -110,10 +110,25 @@ void swap(stack_t **stack, unsigned int line_n)
 	top->next->n = temp_value;
 }
 
+void add(stack_t **stack, unsigned int line_n)
+{
+	stack_t *top = *stack;
+
+	if (!top || !top->next)
+	{
+		fprintf(stderr, "L%u: can't add, stack too short\n", line_n);
+		exit(EXIT_FAILURE);
+	}
+
+	top->next->n += top->n;
+	pop(stack, line_n);
+}
+
+
 void exec_op(char *tokens[], stack_t **stack, unsigned int line_number)
 {
 	int i, length;
-	instruction_t op_ar[] = {{"push", push}, {"pall", pall}, {"pint", pint}, {"pop", pop}, {"swap", swap}};
+	instruction_t op_ar[] = {{"push", push}, {"pall", pall}, {"pint", pint}, {"pop", pop}, {"swap", swap}, {"add", add}};
 
 	length = sizeof(op_ar) / sizeof(op_ar[0]);
 
