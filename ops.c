@@ -78,14 +78,15 @@ void pop(stack_t **stack, unsigned int line_n)
  */
 void pint(stack_t **stack, unsigned int line_number)
 {
-	if (!(*stack))
+	stack_t *top = *stack;
+
+	if (!top)
 	{
-		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
+		exit(EXIT_FAILURE);
 	}
-	else
-	{
-		printf("%d\n", (*stack)->n);
-	}
+
+	printf("%d\n", top->n);
 }
 
 /**
