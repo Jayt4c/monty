@@ -8,17 +8,20 @@ char *value = "";
  */
 void push(stack_t **stack, unsigned int line_number)
 {
-	stack_t *newNode = malloc(sizeof(stack_t));
-
-	if (newNode == NULL)
-	{
-		fprintf(stderr, "Error: malloc failed at line %d\n", line_number);
-		exit(EXIT_FAILURE);
-	}
+	stack_t *newNode;
 
 	if (isdig(value) == 0)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		freestack(*stack);
+		exit(EXIT_FAILURE);
+	}
+
+	newNode = malloc(sizeof(stack_t));
+
+	if (newNode == NULL)
+	{
+		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
 
