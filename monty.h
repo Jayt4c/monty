@@ -49,6 +49,7 @@ void pint(stack_t **stack, unsigned int line_number);
 void swap(stack_t **stack, unsigned int line_n);
 void add(stack_t **top_ptr, unsigned int line_n);
 void nop(stack_t **stack, unsigned int line_n);
+void sub(stack_t **stack, unsigned int line_n);
 void exec_op(char *tokens[], stack_t **stack, unsigned int line_number);
 void freestack(stack_t *head);
 
