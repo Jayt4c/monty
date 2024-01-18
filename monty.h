@@ -45,6 +45,7 @@ int isdig(char *s);
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_n);
+void pint(stack_t **stack, unsigned int line_number);
 void exec_op(char *tokens[], stack_t **stack, unsigned int line_number);
 void freestack(stack_t *head);
 
