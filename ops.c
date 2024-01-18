@@ -56,7 +56,25 @@ void pall(stack_t **stack, unsigned int line_number)
 		current = current->next;
 	}
 }
-
+void pop(stack_t **stack, unsigned int line_n)
+{
+	stack_t *popped = *stack;
+	if (!popped)
+	{
+		fprintf(stderr, "L%u: can't pop an empty stack\n", line_n);
+		freestack(*stack);
+		exit(EXIT_FAILURE);
+	}
+	popped = *stack;
+	if (popped->prev != NULL)
+	{
+		popped->prev->next = NULL;
+		*stack = popped->prev;
+	}
+	else
+		*stack = NULL;
+	free(popped);
+}
 /**
  * exec_op - executes a program from an array of programs.
  * @tokens: array containing tokenized opcode segments.
@@ -67,7 +85,7 @@ void pall(stack_t **stack, unsigned int line_number)
 void exec_op(char *tokens[], stack_t **stack, unsigned int line_number)
 {
 	int i, length;
-	instruction_t op_ar[] = {{"push", push}, {"pall", pall}};
+	instruction_t op_ar[] = {{"push", push}, {"pall", pall}, {"pop", pop}};
 
 	length = sizeof(op_ar) / sizeof(op_ar[0]);
 

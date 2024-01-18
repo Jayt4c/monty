@@ -44,6 +44,7 @@ char *fgets(char *str, int n, FILE *stream);
 int isdig(char *s);
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
+void pop(stack_t **stack, unsigned int line_n);
 void exec_op(char *tokens[], stack_t **stack, unsigned int line_number);
 void freestack(stack_t *head);
 
