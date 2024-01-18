@@ -7,30 +7,31 @@ char *value = "";
  * Return: unnecessary as function returns void.
  */
 void push(stack_t **stack, unsigned int line_number)
-{
-	stack_t *newNode = malloc(sizeof(stack_t));
+  {
+  stack_t *newNode = malloc(sizeof(stack_t));
 
-	if (newNode == NULL)
-	{
-		fprintf(stderr, "Error: malloc failed at line %d\n", line_number);
-		exit(EXIT_FAILURE);
-	}
+  if (newNode == NULL)
+  {
+  fprintf(stderr, "Error: malloc failed at line %d\n", line_number);
+  exit(EXIT_FAILURE);
+  }
 
-	if (isdig(value) == 0)
-	{
-		fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		exit(EXIT_FAILURE);
-	}
+  if (isdig(value) == 0)
+  {
+  fprintf(stderr, "L%d: usage: push integer\n", line_number);
+  exit(EXIT_FAILURE);
+  }
 
-	newNode->n = atoi(value);
-	newNode->prev = NULL;
-	newNode->next = *stack;
+  newNode->n = atoi(value);
+  newNode->prev = NULL;
+  newNode->next = *stack;
 
-	if (*stack != NULL)
-		(*stack)->prev = newNode;
+  if (*stack != NULL)
+  (*stack)->prev = newNode;
 
-	*stack = newNode;
-}
+ *stack = newNode;
+ }
+
 
 /**
  * pall - prints all int data in the stack.
@@ -94,10 +95,25 @@ void pint(stack_t **stack, unsigned int line_number)
  * @line_number: the line number of opcode in source file.
  * Return: unnecessary as function returns void.
  */
+
+void swap(stack_t **stack, unsigned int line_n)
+{
+	stack_t *top = *stack;
+	int temp_value = 0;
+	if (!top || !top->next)
+	{
+		fprintf(stderr, "L%u: can't swap, stack too short\n", line_n);
+		exit(EXIT_FAILURE);
+	}
+	temp_value = top->n;
+	top->n = top->next->n;
+	top->next->n = temp_value;
+}
+
 void exec_op(char *tokens[], stack_t **stack, unsigned int line_number)
 {
 	int i, length;
-	instruction_t op_ar[] = {{"push", push}, {"pall", pall}, {"pint", pint}, {"pop", pop}};
+	instruction_t op_ar[] = {{"push", push}, {"pall", pall}, {"pint", pint}, {"pop", pop}, {"swap", swap}};
 
 	length = sizeof(op_ar) / sizeof(op_ar[0]);
 
