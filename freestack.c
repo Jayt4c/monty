@@ -8,11 +8,10 @@ void freestack(stack_t *head)
 {
 	stack_t *temp;
 
-	temp = head;
-	while (temp != NULL)
+	while (head != NULL)
 	{
+		temp = head;
 		head = head->next;
 		free(temp);
-		temp = head;
 	}
 }
