@@ -1,14 +1,14 @@
 #include "monty.h"
 /**
- * main - entry point of the program..
+ * main - entry point of the program.
  * @argc: the number of arguments passed to program.
  * @argv: 1D array of arguments passed to program.
- * Return: always 0 (success).......
+ * Return: always 0 (success).
  */
 int main(int argc, char *argv[])
 {
 	char buf[1024];
-	unsigned int line_number;
+	unsigned int line_number = 0;
 	FILE *file;
 	char *tokens[2];
 	stack_t *stack = NULL;
@@ -26,7 +26,6 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
-	line_number = 0;
 
 	while (fgets(buf, sizeof(buf), file) != NULL)
 	{
@@ -37,11 +36,15 @@ int main(int argc, char *argv[])
 			i++;
 			tokens[i] = strtok(NULL, delim);
 		}
+		if (tokens[0] == NULL)
+		{
+			i = 0;
+			continue;
+		}
 		exec_op(tokens, &stack, line_number);
 		i = 0;
 	}
 	freestack(stack);
 	fclose(file);
-
 	return (0);
 }
